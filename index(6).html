@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123c32">
+<title>Photosynthesis Virtual Lab | روشنی سے غذا</title>
+<style>
+:root{--green:#176b4a;--deep:#123c32;--mint:#e8f7ed;--gold:#ffc857;--ink:#17352c;--muted:#60766d;--card:#fff;--line:#dcebe1}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#eaf8f0,#f6fbff);font-family:system-ui,"Noto Nastaliq Urdu","Noto Sans Arabic",sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#123c32,#1c7652);color:white;padding:22px 5vw 28px;text-align:center}
+header small{letter-spacing:2px;color:#c9f2d8;font-weight:700}h1{font-size:clamp(25px,4vw,42px);margin:8px 0}header p{margin:0;color:#e0f7e8}
+main{max-width:1120px;margin:auto;padding:20px 16px 50px}.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:4px 0 18px}
+button,.tab{border:0;border-radius:13px;padding:11px 17px;background:#e3f1e8;color:var(--deep);font-weight:750;cursor:pointer;font:inherit}
+button.primary,.tab.active{background:var(--green);color:#fff}button:focus-visible,input:focus-visible{outline:3px solid #ffc857;outline-offset:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 10px 30px #164d3210;margin-bottom:16px}
+h2{margin:0 0 10px;color:var(--deep);font-size:23px}.muted{color:var(--muted);line-height:1.8}
+.labgrid{display:grid;grid-template-columns:1.45fr 1fr;gap:16px}.scene{position:relative;min-height:390px;border-radius:20px;overflow:hidden;background:linear-gradient(#83d5f4 0 57%,#d9f4ff 57% 68%,#8bca79 68% 100%);direction:ltr}
+.scene.night{background:linear-gradient(#152b4c 0 57%,#293e5b 57% 68%,#466d51 68% 100%)}
+.sun{position:absolute;top:28px;right:9%;width:78px;height:78px;border-radius:50%;background:#ffd34f;box-shadow:0 0 0 12px #ffe69a66,0 0 50px #ffcf43;transition:.5s}
+.night .sun{opacity:.08;transform:translateY(-100px)}
+.rays{position:absolute;top:88px;right:16%;width:160px;height:120px;border-right:3px dashed #fff4a8;transform:rotate(25deg);opacity:.8}
+.cloud{position:absolute;top:68px;left:12%;font-size:48px;color:#fff;text-shadow:0 4px 8px #3675a055}
+.plant{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);width:210px;height:260px}
+.stem{position:absolute;bottom:0;left:50%;height:195px;width:13px;background:linear-gradient(90deg,#17643b,#67b94d);border-radius:100%;transform:translateX(-50%)}
+.leaf{position:absolute;width:100px;height:48px;background:linear-gradient(135deg,#8de05c,#16834b);border-radius:100% 0 100% 0;box-shadow:inset 0 -5px 8px #07552d44;transition:.5s}
+.leaf:after{content:"";position:absolute;left:10%;top:50%;width:80%;height:2px;background:#d3f8a6;transform:rotate(-17deg)}
+.l1{left:7px;bottom:110px;transform:rotate(15deg)}.l2{right:5px;bottom:150px;transform:scaleX(-1) rotate(15deg)}.l3{left:0;bottom:55px;transform:rotate(-8deg) scale(.8)}
+.flower{position:absolute;left:84px;bottom:188px;font-size:30px}
+.roots{position:absolute;bottom:-7px;left:50%;width:110px;height:42px;border-top:6px solid #98683c;transform:translateX(-50%);border-radius:50%}
+.root{position:absolute;bottom:-15px;left:50%;width:4px;height:48px;background:#98683c;transform:rotate(22deg);transform-origin:top}
+.root.r2{transform:rotate(-24deg);height:38px}
+.ground{position:absolute;bottom:0;height:19%;width:100%;background:linear-gradient(#9b7047,#6d482e);border-top:8px solid #c6a16b}
+.pot{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:115px;height:74px;background:linear-gradient(90deg,#b85c37,#e98a54,#a94c2e);clip-path:polygon(8% 0,92% 0,78% 100%,22% 100%);border-radius:8px}
+.bubble{position:absolute;color:#fff;font-weight:900;font-size:21px;text-shadow:0 2px 5px #174d39;animation:float 3s infinite ease-in-out}
+.b1{left:24%;top:42%}.b2{left:72%;top:50%;animation-delay:1s}.b3{left:38%;top:32%;animation-delay:1.7s}
+@keyframes float{50%{transform:translateY(-18px);opacity:.5}}
+.scene.night .leaf{filter:brightness(.65)}.scene.night .bubble{display:none}
+.scene-label{position:absolute;bottom:12px;left:12px;background:#ffffffd9;border-radius:10px;padding:7px 10px;font-size:13px;color:#17352c;direction:rtl}
+.controls{display:grid;gap:14px}.control{background:#f5faf6;padding:12px;border-radius:14px}.control label{display:flex;justify-content:space-between;font-weight:750;margin-bottom:8px}
+input[type=range]{width:100%;accent-color:var(--green);direction:ltr}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:12px}.switch{min-width:110px}
+.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{background:#eff8f1;padding:12px;border-radius:13px;text-align:center}.metric strong{display:block;font-size:24px;color:var(--green)}.metric small{color:var(--muted)}
+.notice{background:#fff6db;border-right:4px solid #e6ae24;padding:12px;border-radius:12px;line-height:1.8}
+.scene-list{display:flex;gap:7px;flex-wrap:wrap}.scene-list button{font-size:14px;padding:9px 12px}
+.hidden{display:none!important}.quizq{border-bottom:1px solid var(--line);padding:12px 0}.quizq label{display:block;padding:7px;cursor:pointer}.feedback{margin-top:12px;font-weight:700}
+footer{text-align:center;color:var(--muted);padding:12px;font-size:13px}
+@media(max-width:760px){.labgrid{grid-template-columns:1fr}.scene{min-height:340px}.stat{grid-template-columns:repeat(3,1fr)}.panel{padding:14px}}
+</style>
+</head>
+<body>
+<header><small>INTERACTIVE SCIENCE VIRTUAL LAB · CLASSES 4–8</small><h1>روشنی سے غذا: ضیائی تالیف</h1><p>Photosynthesis — پودے سورج کی روشنی سے اپنی غذا کیسے بناتے ہیں؟</p></header>
+<main>
+<nav class="tabs" aria-label="حصے">
+<button class="tab active" data-tab="learn">سبق اور مناظر</button><button class="tab" data-tab="experiment">ورچوئل تجربہ</button><button class="tab" data-tab="compare">موازنہ</button><button class="tab" data-tab="quiz">مختصر کوئز</button>
+</nav>
+<section id="learn" class="page">
+<div class="panel">
+<h2>آئیے پودے کی خوراک بنانے کا عمل دیکھیں</h2><p class="muted">نیچے ہر منظر منتخب کریں۔ حرکت کرتی ہوئی علامتیں پانی، کاربن ڈائی آکسائیڈ اور آکسیجن کے سفر کو ظاہر کرتی ہیں۔</p>
+<div class="scene-list">
+<button class="primary" data-scene="0">1۔ سورج کی روشنی</button><button data-scene="1">2۔ پانی کا جذب</button><button data-scene="2">3۔ کاربن ڈائی آکسائیڈ</button><button data-scene="3">4۔ غذا اور آکسیجن</button>
+</div>
+</div>
+<div class="labgrid">
+<div class="scene" id="learnScene"><div class="sun"></div><div class="rays"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="bubble b3">☀</div>
+<div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌼</div><div class="roots"></div><div class="root"></div><div class="root r2"></div></div><div class="ground"></div><div class="pot"></div><div class="scene-label" id="sceneCaption">سورج کی روشنی پتے تک پہنچتی ہے۔</div></div>
+<div class="panel"><h2 id="sceneTitle">منظر 1: سورج کی روشنی</h2><p class="muted" id="sceneText">پتے سورج کی روشنی جذب کرتے ہیں۔ پتے میں موجود سبز مادہ کلوروفل روشنی جذب کرنے میں مدد دیتا ہے۔</p><div class="notice" id="sceneFact">یاد رکھیں: سورج پودے کو توانائی فراہم کرتا ہے۔</div><div style="margin-top:14px;display:flex;gap:8px"><button id="prevScene">پچھلا</button><button class="primary" id="nextScene">اگلا منظر</button><button id="speak">🔊 اردو میں سنیں</button></div></div>
+</div>
+</section>
+<section id="experiment" class="page hidden">
+<div class="panel"><h2>اپنا تجربہ خود کریں</h2><p class="muted">روشنی، پانی اور کاربن ڈائی آکسائیڈ کی مقدار تبدیل کریں اور دیکھیں کہ ضیائی تالیف کی رفتار پر کیا اثر پڑتا ہے۔</p>
+<div class="labgrid"><div class="scene" id="labScene"><div class="sun"></div><div class="rays"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌼</div><div class="roots"></div><div class="root"></div><div class="root r2"></div></div><div class="ground"></div><div class="pot"></div><div class="scene-label" id="labCaption">پودا روشنی میں ہے</div></div>
+<div class="panel controls">
+<div class="switchrow"><strong>☀️ سورج کی روشنی</strong><button id="sunToggle" class="primary switch">روشنی ON</button></div>
+<div class="control"><label for="light">روشنی کی شدت <span id="lightVal">زیادہ</span></label><input id="light" type="range" min="0" max="2" value="2"></div>
+<div class="control"><label for="co2">کاربن ڈائی آکسائیڈ (CO₂) <span id="co2Val">زیادہ</span></label><input id="co2" type="range" min="0" max="2" value="2"></div>
+<div class="control"><label for="water">پانی (H₂O) <span id="waterVal">زیادہ</span></label><input id="water" type="range" min="0" max="2" value="2"></div>
+<button id="reset" class="primary">تجربہ دوبارہ شروع کریں</button>
+</div></div>
+<div class="panel"><h2>تجربے کا نتیجہ</h2><div class="stat"><div class="metric"><strong id="rate">100%</strong><small>ضیائی تالیف کی نسبتی رفتار</small></div><div class="metric"><strong id="glucose">زیادہ</strong><small>گلوکوز بننے کی شرح</small></div><div class="metric"><strong id="oxygen">زیادہ</strong><small>آکسیجن کا اخراج</small></div></div><p id="resultText" class="muted">تمام ضروری اجزا وافر ہیں، اس لیے اس سادہ ماڈل میں رفتار زیادہ ہے۔</p><div class="notice">سائنسی نوٹ: یہ تعلیمی ماڈل ہے۔ اصل پودوں میں درجۂ حرارت، روشنی کی طولِ موج، پتوں کی حالت اور دیگر عوامل بھی اثر انداز ہوتے ہیں۔ سورج بند ہونے پر پودا فوراً نہیں مرتا؛ وہ کچھ وقت ذخیرہ شدہ غذا استعمال کر سکتا ہے اور تنفس جاری رہتا ہے۔</div></div>
+</div>
+</section>
+<section id="compare" class="page hidden">
+<div class="panel"><h2>روشنی موجود ہو یا نہ ہو؟</h2><p class="muted">دونوں حالتوں کا موازنہ کریں۔</p><div class="labgrid">
+<div class="panel"><h2>☀️ روشنی موجود</h2><ul><li>روشنی توانائی فراہم کرتی ہے۔</li><li>پانی اور CO₂ کی موجودگی میں ضیائی تالیف ہو سکتی ہے۔</li><li>گلوکوز بنتا ہے اور آکسیجن خارج ہوتی ہے۔</li></ul></div>
+<div class="panel"><h2>🌑 روشنی نہیں</h2><ul><li>روشنی پر منحصر ضیائی تالیف رک جاتی ہے۔</li><li>نئی غذا بنانے کا عمل بہت کم یا بند ہو جاتا ہے۔</li><li>پودا کچھ وقت ذخیرہ شدہ غذا استعمال کر سکتا ہے۔</li><li>طویل عرصے تک روشنی نہ ملے تو پودا کمزور ہو سکتا ہے۔</li></ul></div></div>
+<div class="notice">اہم فرق: ضیائی تالیف اور تنفس الگ عمل ہیں۔ روشنی نہ ہونے پر بھی پودے کا تنفس جاری رہتا ہے۔</div></div>
+</section>
+<section id="quiz" class="page hidden">
+<div class="panel"><h2>اپنی سمجھ جانچیں</h2><p class="muted">ہر سوال کا ایک درست جواب منتخب کریں، پھر نتیجہ دیکھیں۔</p><form id="quizForm">
+<div class="quizq"><b>1۔ ضیائی تالیف کے لیے توانائی کا بنیادی ذریعہ کیا ہے؟</b><label><input type="radio" name="q1" value="a"> سورج کی روشنی</label><label><input type="radio" name="q1" value="b"> مٹی</label><label><input type="radio" name="q1" value="c"> آکسیجن</label></div>
+<div class="quizq"><b>2۔ پودا ضیائی تالیف کے دوران کون سی گیس جذب کرتا ہے؟</b><label><input type="radio" name="q2" value="a"> آکسیجن</label><label><input type="radio" name="q2" value="b"> کاربن ڈائی آکسائیڈ</label><label><input type="radio" name="q2" value="c"> نائٹروجن</label></div>
+<div class="quizq"><b>3۔ جڑیں بنیادی طور پر کیا جذب کرتی ہیں؟</b><label><input type="radio" name="q3" value="a"> سورج کی روشنی</label><label><input type="radio" name="q3" value="b"> آکسیجن کے بلبلے</label><label><input type="radio" name="q3" value="c"> پانی</label></div>
+<div class="quizq"><b>4۔ ضیائی تالیف کے دوران کون سی گیس خارج ہوتی ہے؟</b><label><input type="radio" name="q4" value="a"> آکسیجن</label><label><input type="radio" name="q4" value="b"> کاربن ڈائی آکسائیڈ</label><label><input type="radio" name="q4" value="c"> ہائیڈروجن</label></div>
+<div class="quizq"><b>5۔ اگر روشنی نہ ہو تو کیا ہوگا؟</b><label><input type="radio" name="q5" value="a"> ضیائی تالیف تیز ہو جائے گی</label><label><input type="radio" name="q5" value="b"> روشنی پر منحصر ضیائی تالیف رک جائے گی</label><label><input type="radio" name="q5" value="c"> پودا فوراً مر جائے گا</label></div>
+<div class="quizq"><b>6۔ پودے میں روشنی جذب کرنے والا سبز مادہ کیا کہلاتا ہے؟</b><label><input type="radio" name="q6" value="a"> ہیموگلوبن</label><label><input type="radio" name="q6" value="b"> نشاستہ</label><label><input type="radio" name="q6" value="c"> کلوروفل</label></div>
+<button class="primary" type="submit">جوابات چیک کریں</button></form><div id="quizResult" class="feedback" aria-live="polite"></div></div>
+</section>
+<footer>Photosynthesis Virtual Lab · تعلیمی سرگرمی برائے جماعت 4 تا 8</footer>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('.tab')];tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('hidden',p.id!==b.dataset.tab));}));
+const scenes=[
+["منظر 1: سورج کی روشنی","پتے سورج کی روشنی جذب کرتے ہیں۔ پتے میں موجود سبز مادہ کلوروفل روشنی جذب کرنے میں مدد دیتا ہے۔","سورج پودے کو توانائی فراہم کرتا ہے۔","سورج کی روشنی پتے تک پہنچتی ہے۔"],
+["منظر 2: پانی کا جذب","جڑیں مٹی سے پانی جذب کرتی ہیں۔ پانی تنے کے ذریعے پتوں تک پہنچتا ہے۔","پانی ضیائی تالیف کے بنیادی خام اجزا میں سے ایک ہے۔","جڑیں پانی جذب کر کے پتوں تک پہنچاتی ہیں۔"],
+["منظر 3: کاربن ڈائی آکسائیڈ","ہوا میں موجود کاربن ڈائی آکسائیڈ پتوں کے باریک سوراخوں، جنہیں اسٹوماٹا کہتے ہیں، کے ذریعے داخل ہوتی ہے۔","پتے گیسوں کے تبادلے میں اہم کردار ادا کرتے ہیں۔","کاربن ڈائی آکسائیڈ ہوا سے پتے میں داخل ہوتی ہے۔"],
+["منظر 4: غذا اور آکسیجن","روشنی کی توانائی استعمال کرتے ہوئے پودا پانی اور کاربن ڈائی آکسائیڈ سے گلوکوز بناتا ہے۔ آکسیجن خارج ہوتی ہے۔","گلوکوز پودے کی غذا اور توانائی کا اہم ذریعہ ہے۔","پتے گلوکوز بناتے ہیں اور آکسیجن خارج کرتے ہیں۔"]];
+let sceneIndex=0;function showScene(i){sceneIndex=(i+4)%4;let s=scenes[sceneIndex];document.getElementById('sceneTitle').textContent=s[0];document.getElementById('sceneText').textContent=s[1];document.getElementById('sceneFact').textContent=s[2];document.getElementById('sceneCaption').textContent=s[3];document.querySelectorAll('[data-scene]').forEach((b,j)=>b.classList.toggle('primary',j===sceneIndex));}
+document.querySelectorAll('[data-scene]').forEach(b=>b.onclick=()=>showScene(+b.dataset.scene));document.getElementById('nextScene').onclick=()=>showScene(sceneIndex+1);document.getElementById('prevScene').onclick=()=>showScene(sceneIndex-1);
+document.getElementById('speak').onclick=()=>{if(!('speechSynthesis'in window)){alert('اس براؤزر میں آواز کی سہولت دستیاب نہیں۔');return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(scenes[sceneIndex][1]);u.lang='ur-PK';u.rate=.85;speechSynthesis.speak(u);};
+const names=['کم','درمیانی','زیادہ'];const $=id=>document.getElementById(id);let sun=true;
+function update(){let l=+$('light').value,c=+$('co2').value,w=+$('water').value;if(!sun)l=0;
+$('lightVal').textContent=names[l];$('co2Val').textContent=names[c];$('waterVal').textContent=names[w];
+$('labScene').classList.toggle('night',!sun);$('labCaption').textContent=sun?'پودا روشنی میں ہے':'سورج کی روشنی بند ہے';
+let rate=Math.round(Math.min(l,c,w)/2*100);$('rate').textContent=rate+'%';$('glucose').textContent=rate===0?'نہیں بن رہا':rate<50?'کم':'زیادہ';$('oxygen').textContent=rate===0?'نہ ہونے کے برابر':rate<50?'کم':'زیادہ';
+let msg=rate===0?'ایک یا زیادہ ضروری عوامل دستیاب نہیں؛ اس ماڈل میں ضیائی تالیف نہیں ہو رہی۔':rate<50?'سب سے کم دستیاب عامل رفتار کو محدود کر رہا ہے۔ مزید روشنی، پانی یا CO₂ دیں۔':'تمام ضروری عوامل کافی ہیں؛ اس ماڈل میں ضیائی تالیف کی رفتار زیادہ ہے۔';
+if(!sun)msg='روشنی بند ہے، اس لیے روشنی پر منحصر ضیائی تالیف رک گئی ہے۔ پودا فوراً نہیں مرتا اور تنفس جاری رہتا ہے۔';$('resultText').textContent=msg;}
+['light','co2','water'].forEach(id=>$(id).addEventListener('input',update));
+$('sunToggle').onclick=()=>{sun=!sun;$('sunToggle').textContent=sun?'روشنی ON':'روشنی OFF';$('sunToggle').classList.toggle('primary',sun);$('light').disabled=!sun;if(sun&&+$('light').value===0)$('light').value=2;update();};
+$('reset').onclick=()=>{sun=true;$('sunToggle').textContent='روشنی ON';$('sunToggle').classList.add('primary');$('light').disabled=false;$('light').value=2;$('co2').value=2;$('water').value=2;update();};update();
+$('quizForm').onsubmit=e=>{e.preventDefault();let key={q1:'a',q2:'b',q3:'c',q4:'a',q5:'b',q6:'c'},score=0;for(let q in key){let a=document.querySelector('input[name="'+q+'"]:checked');if(a&&a.value===key[q])score++;}let msg='آپ کا اسکور: '+score+'/6 — ';msg+=score===6?'زبردست! آپ نے سبق اچھی طرح سمجھ لیا۔':score>=4?'اچھی کوشش! مناظر دوبارہ دیکھ کر باقی سوالات سمجھیں۔':'سبق اور تجربہ دوبارہ دیکھیں، پھر کوشش کریں۔';$('quizResult').textContent=msg;};
+</script>
+</body></html>
