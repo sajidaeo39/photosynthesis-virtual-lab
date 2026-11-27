@@ -16,9 +16,12 @@ button.primary,.tab.active{background:var(--green);color:#fff}button:focus-visib
 h2{margin:0 0 10px;color:var(--deep);font-size:23px}.muted{color:var(--muted);line-height:1.8}
 .labgrid{display:grid;grid-template-columns:1.45fr 1fr;gap:16px}.scene{position:relative;min-height:390px;border-radius:20px;overflow:hidden;background:linear-gradient(#83d5f4 0 57%,#d9f4ff 57% 68%,#8bca79 68% 100%);direction:ltr}
 .scene.night{background:linear-gradient(#152b4c 0 57%,#293e5b 57% 68%,#466d51 68% 100%)}
-.sun{position:absolute;top:28px;right:9%;width:78px;height:78px;border-radius:50%;background:#ffd34f;box-shadow:0 0 0 12px #ffe69a66,0 0 50px #ffcf43;transition:.5s}
+.sun{position:absolute;top:28px;right:9%;width:78px;height:78px;border-radius:50%;background:#ffd34f;box-shadow:0 0 0 12px #ffe69a66,0 0 50px #ffcf43;transition:.5s;z-index:1}
+.sun.sun2{right:auto;left:9%;width:66px;height:66px;top:48px;background:#ffad42;box-shadow:0 0 0 10px #ffd18a66,0 0 42px #ffad42}
 .night .sun{opacity:.08;transform:translateY(-100px)}
 .rays{position:absolute;top:88px;right:16%;width:160px;height:120px;border-right:3px dashed #fff4a8;transform:rotate(25deg);opacity:.8}
+.rays.rays2{right:auto;left:15%;top:108px;width:135px;height:100px;border-right:0;border-left:3px dashed #ffe0a0;transform:rotate(-25deg)}
+.night .rays{opacity:0}
 .cloud{position:absolute;top:68px;left:12%;font-size:48px;color:#fff;text-shadow:0 4px 8px #3675a055}
 .plant{position:absolute;bottom:18%;left:50%;transform:translateX(-50%);width:210px;height:260px}
 .stem{position:absolute;bottom:0;left:50%;height:195px;width:13px;background:linear-gradient(90deg,#17643b,#67b94d);border-radius:100%;transform:translateX(-50%)}
@@ -61,17 +64,17 @@ footer{text-align:center;color:var(--muted);padding:12px;font-size:13px}
 </div>
 </div>
 <div class="labgrid">
-<div class="scene" id="learnScene"><div class="sun"></div><div class="rays"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="bubble b3">☀</div>
+<div class="scene" id="learnScene"><div class="sun sun1"></div><div class="rays rays1"></div><div class="sun sun2"></div><div class="rays rays2"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="bubble b3">☀</div>
 <div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌼</div><div class="roots"></div><div class="root"></div><div class="root r2"></div></div><div class="ground"></div><div class="pot"></div><div class="scene-label" id="sceneCaption">سورج کی روشنی پتے تک پہنچتی ہے۔</div></div>
 <div class="panel"><h2 id="sceneTitle">منظر 1: سورج کی روشنی</h2><p class="muted" id="sceneText">پتے سورج کی روشنی جذب کرتے ہیں۔ پتے میں موجود سبز مادہ کلوروفل روشنی جذب کرنے میں مدد دیتا ہے۔</p><div class="notice" id="sceneFact">یاد رکھیں: سورج پودے کو توانائی فراہم کرتا ہے۔</div><div style="margin-top:14px;display:flex;gap:8px"><button id="prevScene">پچھلا</button><button class="primary" id="nextScene">اگلا منظر</button><button id="speak">🔊 اردو میں سنیں</button></div></div>
 </div>
 </section>
 <section id="experiment" class="page hidden">
 <div class="panel"><h2>اپنا تجربہ خود کریں</h2><p class="muted">روشنی، پانی اور کاربن ڈائی آکسائیڈ کی مقدار تبدیل کریں اور دیکھیں کہ ضیائی تالیف کی رفتار پر کیا اثر پڑتا ہے۔</p>
-<div class="labgrid"><div class="scene" id="labScene"><div class="sun"></div><div class="rays"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌼</div><div class="roots"></div><div class="root"></div><div class="root r2"></div></div><div class="ground"></div><div class="pot"></div><div class="scene-label" id="labCaption">پودا روشنی میں ہے</div></div>
+<div class="labgrid"><div class="scene" id="labScene"><div class="sun sun1"></div><div class="rays rays1"></div><div class="sun sun2"></div><div class="rays rays2"></div><div class="cloud">☁</div><div class="bubble b1">CO₂ ↓</div><div class="bubble b2">O₂ ↑</div><div class="plant"><div class="stem"></div><div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div><div class="flower">🌼</div><div class="roots"></div><div class="root"></div><div class="root r2"></div></div><div class="ground"></div><div class="pot"></div><div class="scene-label" id="labCaption">پودا روشنی میں ہے</div></div>
 <div class="panel controls">
-<div class="switchrow"><strong>☀️ سورج کی روشنی</strong><button id="sunToggle" class="primary switch">روشنی ON</button></div>
-<div class="control"><label for="light">روشنی کی شدت <span id="lightVal">زیادہ</span></label><input id="light" type="range" min="0" max="2" value="2"></div>
+<div class="control"><strong>🌞 دونوں سورج الگ الگ کنٹرول کریں</strong><div class="switchrow" style="margin-top:10px"><span>پہلا سورج</span><button id="sun1Toggle" class="primary switch">Sun 1 ON</button></div><div class="switchrow" style="margin-top:8px"><span>دوسرا سورج</span><button id="sun2Toggle" class="primary switch">Sun 2 ON</button></div><div class="scene-list" style="margin-top:12px"><button type="button" id="noSun">بغیر سورج</button><button type="button" id="oneSun">ایک سورج</button><button type="button" id="twoSuns" class="primary">دو سورج</button></div></div>
+<div class="control"><label for="light">روشنی کی شدت (فی سورج) <span id="lightVal">زیادہ</span></label><input id="light" type="range" min="0" max="2" value="2"></div>
 <div class="control"><label for="co2">کاربن ڈائی آکسائیڈ (CO₂) <span id="co2Val">زیادہ</span></label><input id="co2" type="range" min="0" max="2" value="2"></div>
 <div class="control"><label for="water">پانی (H₂O) <span id="waterVal">زیادہ</span></label><input id="water" type="range" min="0" max="2" value="2"></div>
 <button id="reset" class="primary">تجربہ دوبارہ شروع کریں</button>
@@ -107,16 +110,23 @@ const scenes=[
 let sceneIndex=0;function showScene(i){sceneIndex=(i+4)%4;let s=scenes[sceneIndex];document.getElementById('sceneTitle').textContent=s[0];document.getElementById('sceneText').textContent=s[1];document.getElementById('sceneFact').textContent=s[2];document.getElementById('sceneCaption').textContent=s[3];document.querySelectorAll('[data-scene]').forEach((b,j)=>b.classList.toggle('primary',j===sceneIndex));}
 document.querySelectorAll('[data-scene]').forEach(b=>b.onclick=()=>showScene(+b.dataset.scene));document.getElementById('nextScene').onclick=()=>showScene(sceneIndex+1);document.getElementById('prevScene').onclick=()=>showScene(sceneIndex-1);
 document.getElementById('speak').onclick=()=>{if(!('speechSynthesis'in window)){alert('اس براؤزر میں آواز کی سہولت دستیاب نہیں۔');return;}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(scenes[sceneIndex][1]);u.lang='ur-PK';u.rate=.85;speechSynthesis.speak(u);};
-const names=['کم','درمیانی','زیادہ'];const $=id=>document.getElementById(id);let sun=true;
-function update(){let l=+$('light').value,c=+$('co2').value,w=+$('water').value;if(!sun)l=0;
-$('lightVal').textContent=names[l];$('co2Val').textContent=names[c];$('waterVal').textContent=names[w];
-$('labScene').classList.toggle('night',!sun);$('labCaption').textContent=sun?'پودا روشنی میں ہے':'سورج کی روشنی بند ہے';
+const names=['کم','درمیانی','زیادہ'];const $=id=>document.getElementById(id);
+let sun1=true,sun2=true;
+function setSunState(a,b){sun1=a;sun2=b;$('sun1Toggle').textContent=sun1?'Sun 1 ON':'Sun 1 OFF';$('sun2Toggle').textContent=sun2?'Sun 2 ON':'Sun 2 OFF';$('sun1Toggle').classList.toggle('primary',sun1);$('sun2Toggle').classList.toggle('primary',sun2);$('noSun').classList.toggle('primary',!sun1&&!sun2);$('oneSun').classList.toggle('primary',sun1!==sun2);$('twoSuns').classList.toggle('primary',sun1&&sun2);update();}
+function update(){let intensity=+$('light').value,c=+$('co2').value,w=+$('water').value;let count=(sun1?1:0)+(sun2?1:0);let l=Math.min(2,count*intensity/2);
+$('lightVal').textContent=names[intensity];$('co2Val').textContent=names[c];$('waterVal').textContent=names[w];
+$('labScene').classList.toggle('night',count===0);$('labScene').querySelector('.sun1').style.opacity=sun1?'1':'0.08';$('labScene').querySelector('.sun2').style.opacity=sun2?'1':'0.08';$('labScene').querySelector('.rays1').style.opacity=sun1?'.8':'0';$('labScene').querySelector('.rays2').style.opacity=sun2?'.8':'0';
+$('labCaption').textContent=count===0?'دونوں سورج بند ہیں':count===1?'صرف ایک سورج روشن ہے':'دونوں سورج روشن ہیں';
 let rate=Math.round(Math.min(l,c,w)/2*100);$('rate').textContent=rate+'%';$('glucose').textContent=rate===0?'نہیں بن رہا':rate<50?'کم':'زیادہ';$('oxygen').textContent=rate===0?'نہ ہونے کے برابر':rate<50?'کم':'زیادہ';
 let msg=rate===0?'ایک یا زیادہ ضروری عوامل دستیاب نہیں؛ اس ماڈل میں ضیائی تالیف نہیں ہو رہی۔':rate<50?'سب سے کم دستیاب عامل رفتار کو محدود کر رہا ہے۔ مزید روشنی، پانی یا CO₂ دیں۔':'تمام ضروری عوامل کافی ہیں؛ اس ماڈل میں ضیائی تالیف کی رفتار زیادہ ہے۔';
-if(!sun)msg='روشنی بند ہے، اس لیے روشنی پر منحصر ضیائی تالیف رک گئی ہے۔ پودا فوراً نہیں مرتا اور تنفس جاری رہتا ہے۔';$('resultText').textContent=msg;}
+if(count===0)msg='دونوں سورج بند ہیں، اس لیے روشنی پر منحصر ضیائی تالیف رک گئی ہے۔ پودا فوراً نہیں مرتا اور تنفس جاری رہتا ہے。';
+else if(count===1)msg='صرف ایک سورج روشن ہے۔ اس سادہ ماڈل میں روشنی دو سورج کے مقابلے میں کم ہے، اس لیے رفتار بھی کم ہو سکتی ہے۔';
+else msg='دونوں سورج روشن ہیں۔ اس سادہ فرضی تجربے میں روشنی زیادہ دستیاب ہے؛ باقی عوامل بھی کافی ہوں تو ضیائی تالیف کی رفتار بڑھتی ہے۔';
+$('resultText').textContent=msg;}
 ['light','co2','water'].forEach(id=>$(id).addEventListener('input',update));
-$('sunToggle').onclick=()=>{sun=!sun;$('sunToggle').textContent=sun?'روشنی ON':'روشنی OFF';$('sunToggle').classList.toggle('primary',sun);$('light').disabled=!sun;if(sun&&+$('light').value===0)$('light').value=2;update();};
-$('reset').onclick=()=>{sun=true;$('sunToggle').textContent='روشنی ON';$('sunToggle').classList.add('primary');$('light').disabled=false;$('light').value=2;$('co2').value=2;$('water').value=2;update();};update();
+$('sun1Toggle').onclick=()=>setSunState(!sun1,sun2);$('sun2Toggle').onclick=()=>setSunState(sun1,!sun2);
+$('noSun').onclick=()=>setSunState(false,false);$('oneSun').onclick=()=>setSunState(true,false);$('twoSuns').onclick=()=>setSunState(true,true);
+$('reset').onclick=()=>{$('light').value=2;$('co2').value=2;$('water').value=2;setSunState(true,true);};setSunState(true,true);
 $('quizForm').onsubmit=e=>{e.preventDefault();let key={q1:'a',q2:'b',q3:'c',q4:'a',q5:'b',q6:'c'},score=0;for(let q in key){let a=document.querySelector('input[name="'+q+'"]:checked');if(a&&a.value===key[q])score++;}let msg='آپ کا اسکور: '+score+'/6 — ';msg+=score===6?'زبردست! آپ نے سبق اچھی طرح سمجھ لیا۔':score>=4?'اچھی کوشش! مناظر دوبارہ دیکھ کر باقی سوالات سمجھیں۔':'سبق اور تجربہ دوبارہ دیکھیں، پھر کوشش کریں۔';$('quizResult').textContent=msg;};
 </script>
 </body></html>
